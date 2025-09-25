@@ -6,7 +6,7 @@
 /*   By: rgomes-d <rgomes-d@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/24 20:31:24 by rgomes-d          #+#    #+#             */
-/*   Updated: 2025/09/24 21:20:48 by rgomes-d         ###   ########.fr       */
+/*   Updated: 2025/09/25 11:11:32 by rgomes-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 void	swap(t_meta_ilist **stack)
 {
-	t_ilist *aux;
+	t_ilist	*aux;
 
-	if(stack[0]->size < 2)
-		return;
+	if (stack[0]->size < 2)
+		return ;
 	aux = stack[0]->head->next;
 	stack[0]->head->prev = aux;
 	stack[0]->head->next = aux->next;
@@ -29,12 +29,75 @@ void	swap(t_meta_ilist **stack)
 }
 void	push(t_meta_ilist **stack_1, t_meta_ilist **stack_2)
 {
-	t_ilist *aux[2];
+	t_ilist	*aux[2];
 
-	aux[0] = stack_2[0]->head;
-	stack_2[0]->head = aux[0]->next;
-	stack_2[0]->head->prev = NULL;
-	aux[0] = 1;
+	if (stack_2[0]->size == 0)
+		return ;
+	aux[0] = stack_2[0]->head->next;
+	aux[1] = stack_2[0]->head;
+	aux[0]->prev = NULL;
+	aux[1]->next = stack_1[0]->head;
+	stack_1[0]->head->prev = aux[1];
+	stack_1[0]->head = aux[1];
+	stack_2[0]->head = aux[0];
+	stack_1[0]->size++;
+	stack_2[0]->size--;
+	while (aux[0])
+	{
+		aux[0]->pos--;
+		aux[0] = aux[0]->next;
+	}
+	aux[1] = aux[1]->next;
+	while (aux[1])
+	{
+		aux[1]->pos++;
+		aux[1] = aux[1]->next;
+	}
+}
+
+void	rotate(t_meta_ilist **stack)
+{
+	t_ilist	*aux[2];
+
+	if (stack[0]->size < 2)
+		return ;
+	aux[0] = stack[0]->head->next;
+	aux[1] = stack[0]->head;
+	aux[0]->prev = NULL;
+	aux[1]->prev = stack[0]->tail;
+	aux[1]->next = NULL;
+	stack[0]->head = aux[0];
+	while (aux[0])
+	{
+		aux[0]->pos--;
+		aux[0] = aux[0]->next;
+	}
+	stack[0]->tail->next = aux[1];
+	aux[1]->pos = stack[0]->tail->pos + 1;
+	stack[0]->tail = aux[1];
+}
+
+void	reverse_rotate(t_meta_ilist **stack)
+{
+	t_ilist	*aux[2];
+
+	if (stack[0]->size < 2)
+		return ;
+	aux[0] = stack[0]->tail->prev;
+	aux[1] = stack[0]->tail;
+	aux[0]->next = NULL;
+	aux[1]->next = stack[0]->head;
+	aux[1]->prev = NULL;
+	stack[0]->tail = aux[0];
+	aux[0] = stack[0]->head;
+	while (aux[0])
+	{
+		aux[0]->pos++;
+		aux[0] = aux[0]->next;
+	}
+	stack[0]->head->prev = aux[1];
+	aux[1]->pos = 1;
+	stack[0]->head = aux[1];
 }
 
 // sa (swap a): Troca os 2 primeiros elementos no topo da pilha a.
