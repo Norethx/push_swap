@@ -6,7 +6,7 @@
 /*   By: rgomes-d <rgomes-d@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 10:33:15 by rgomes-d          #+#    #+#             */
-/*   Updated: 2025/07/21 10:50:59 by rgomes-d         ###   ########.fr       */
+/*   Updated: 2025/09/24 16:55:28 by rgomes-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,12 @@ static int	ft_count_words(const char *s, char c)
 
 	quantity_words = 0;
 	i = 0;
-	while (s[i++] != 0)
+	while (s[i] != 0)
+	{
 		if (((s[i] != 0 && s[i] != c)) && (s[i + 1] == c || s[i + 1] == 0))
 			quantity_words++;
+		i++;
+	}
 	return (quantity_words);
 }
 

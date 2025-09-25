@@ -1,0 +1,24 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "C/C++ Runner: Debug Session",
+      "type": "cppdbg",
+      "request": "launch",
+      "args": ["16224 17441 5507 14351 25482 12294 11997 46281 4741 11008 34044 37463 29085 18730 21131 34786 49057 43013 49165 3181 32356 32236 16896 46053 45175 49708 14228 27815 7874 16392 42754 21717 3587 13995 42127 20382 31122 10118 22089 24378 49884 41834 3630 26670 38423 18481 37531 49070 48147 36476 25525 43012 44352 3478 49049 38037 27842 23039 36031 31148 31609 34546 11069 13469 23020 7144 2261 13897 2322 1132 25437 9428 41922 24373 17900 12289 11021 5514 22742 48783 22012 30428 31460 44206 335 42209 37472 3232 25490 29574 22090 6747 28572 19970 48273 28211 3003 9293 10597 33589"],
+      "stopAtEntry": false,
+      "externalConsole": false,
+      "cwd": "/nfs/homes/rgomes-d/git_Noreth/push_swap",
+      "program": "/nfs/homes/rgomes-d/git_Noreth/push_swap/push_swap",
+      "MIMode": "gdb",
+      "miDebuggerPath": "gdb",
+      "setupCommands": [
+        {
+          "description": "Enable pretty-printing for gdb",
+          "text": "-enable-pretty-printing",
+          "ignoreFailures": true
+        }
+      ]
+    }
+  ]
+}

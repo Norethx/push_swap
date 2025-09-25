@@ -5,7 +5,7 @@ LIBFT := srcs/libft/libft.a
 SRCS_LIBFT := srcs/libft
 INCLUDES := includes
 CPPFLAGS :=  $(addprefix -I,$(INCLUDES))
-SRCS_MANDATORY := push_swap.c     handle_error.c
+SRCS_MANDATORY := push_swap.c     handle_error.c     parsing_args.c
 SRCS_BONUS :=
 OBJTS   := $(SRCS_MANDATORY:.c=.o)
 SRCS_BONUS := $(addprefix srcs/bonus/,$(SRCS_BONUS))

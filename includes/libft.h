@@ -6,7 +6,7 @@
 /*   By: rgomes-d <rgomes-d@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 09:57:31 by rgomes-d          #+#    #+#             */
-/*   Updated: 2025/09/11 19:46:34 by rgomes-d         ###   ########.fr       */
+/*   Updated: 2025/09/24 14:42:20 by rgomes-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,5 +159,15 @@ t_ext_list				*ft_ext_newlst(void);
 t_root_list				*ft_gc_call_root(char *categ);
 int						ft_size_chrarr(char **array);
 int						ft_isspace(char c);
+size_t					ft_arraylen_chr(char **array);
+void					*ft_gcfct_arr_register_root(void **content,
+							t_gc_type type, char *root);
+void					*ft_gcfct_register_root(void *content, t_gc_type type,
+							char *root);
+void					*ft_gc_calloc_root(size_t nmemb, size_t size,
+							t_gc_type type, char *root);
+void					*ft_gc_malloc_root(size_t size, t_gc_type type,
+							char *root);
+long long				ft_atoll(const char *nptr);
 
 #endif

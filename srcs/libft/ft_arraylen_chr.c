@@ -1,37 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.c                                        :+:      :+:    :+:   */
+/*   ft_arraylen_chr.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rgomes-d <rgomes-d@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/11 18:39:09 by rgomes-d          #+#    #+#             */
-/*   Updated: 2025/09/24 20:57:57 by rgomes-d         ###   ########.fr       */
+/*   Created: 2025/09/24 11:28:34 by rgomes-d          #+#    #+#             */
+/*   Updated: 2025/09/24 11:32:57 by rgomes-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "libft.h"
 
-
-
-int	main(int argc, char **argv)
+size_t	ft_arraylen_chr(char **array)
 {
-	t_meta_ilist	*nums;
-	t_ilist			*aux;
+	int	i[2];
 
-	if (argc < 1)
-		return(0);
-	if (ft_gc_init())
-		return (handle_error());
-	nums = parsing_args(argv);
-	if (!nums)
-		return (1);
-	aux = nums->head;
-	while (aux)
-	{
-		ft_printf("%d\n",aux->r_pos);
-		aux = aux->next;
-	}
-	ft_gc_end();
-	return (0);
+	i[0] = 0;
+	i[1] = 0;
+	while (array[i[0]])
+		i[1] += ft_strlen(array[i[0]++]);
+	return ((size_t)i[1]);
 }

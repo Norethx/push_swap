@@ -6,7 +6,7 @@
 /*   By: rgomes-d <rgomes-d@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 18:35:06 by rgomes-d          #+#    #+#             */
-/*   Updated: 2025/09/11 19:31:13 by rgomes-d         ###   ########.fr       */
+/*   Updated: 2025/09/24 20:18:57 by rgomes-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,23 +19,46 @@ typedef enum e_error
 {
 	INVALID_ARGS,
 	INVALID_NUMBER,
-	NOT_INT_ERROR
-}						t_error;
+	NOT_INT_ERROR,
+	NOT_NUMBER
+
+}					t_error;
+
+typedef enum e_chunck
+{
+	LOWERS,
+	AVERAGE,
+	HIGHERS,
+	ALL
+}					t_chunck;
+
+typedef enum e_side
+{
+	A,
+	B,
+}					t_side;
 
 typedef struct s_ilist
 {
-	int					num;
-	struct s_list_int	*next;
-	struct s_list_int	*prev;
-}						t_ilist;
+	int				num;
+	struct s_ilist	*next;
+	struct s_ilist	*prev;
+	int				pos;
+	int				r_pos;
+}					t_ilist;
 
 typedef struct s_meta_ilist
 {
-	t_ilist				*head;
-	t_ilist				*tail;
-	int					size;
-}						t_meta_ilist;
+	t_ilist			*head;
+	t_ilist			*tail;
+	int				init_pos;
+	int				final_pos;
+	t_side			w_side;
+	int				size;
+	t_chunck		w_chunck;
+}					t_meta_ilist;
 
-int	handle_error(t_error error);
+int					handle_error(void);
+t_meta_ilist		*parsing_args(char **args);
 
 #endif
