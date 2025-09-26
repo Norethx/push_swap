@@ -5,117 +5,67 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: rgomes-d <rgomes-d@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/24 20:31:24 by rgomes-d          #+#    #+#             */
-/*   Updated: 2025/09/25 11:11:32 by rgomes-d         ###   ########.fr       */
+/*   Created: 2025/09/25 14:53:41 by rgomes-d          #+#    #+#             */
+/*   Updated: 2025/09/25 15:54:23 by rgomes-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	swap(t_meta_ilist **stack)
+int	sa(void)
 {
-	t_ilist	*aux;
+	t_core	*core;
 
-	if (stack[0]->size < 2)
-		return ;
-	aux = stack[0]->head->next;
-	stack[0]->head->prev = aux;
-	stack[0]->head->next = aux->next;
-	stack[0]->head->pos = 2;
-	aux->next = stack[0]->head;
-	aux->prev = NULL;
-	aux->pos = 1;
-	stack[0]->head = aux;
+	core = core_utils();
+	if (swap(&core->stack_a))
+		return (1);
+	core->last_move = NONE;
+	ft_printf("sa\n");
+	return (0);
 }
-void	push(t_meta_ilist **stack_1, t_meta_ilist **stack_2)
+int	sb(void)
 {
-	t_ilist	*aux[2];
+	t_core	*core;
 
-	if (stack_2[0]->size == 0)
-		return ;
-	aux[0] = stack_2[0]->head->next;
-	aux[1] = stack_2[0]->head;
-	aux[0]->prev = NULL;
-	aux[1]->next = stack_1[0]->head;
-	stack_1[0]->head->prev = aux[1];
-	stack_1[0]->head = aux[1];
-	stack_2[0]->head = aux[0];
-	stack_1[0]->size++;
-	stack_2[0]->size--;
-	while (aux[0])
-	{
-		aux[0]->pos--;
-		aux[0] = aux[0]->next;
-	}
-	aux[1] = aux[1]->next;
-	while (aux[1])
-	{
-		aux[1]->pos++;
-		aux[1] = aux[1]->next;
-	}
+	core = core_utils();
+	if (swap(&core->stack_b))
+		return (1);
+	core->last_move = NONE;
+	ft_printf("sb\n");
+	return (0);
 }
 
-void	rotate(t_meta_ilist **stack)
+int	ss(void)
 {
-	t_ilist	*aux[2];
+	t_core	*core;
 
-	if (stack[0]->size < 2)
-		return ;
-	aux[0] = stack[0]->head->next;
-	aux[1] = stack[0]->head;
-	aux[0]->prev = NULL;
-	aux[1]->prev = stack[0]->tail;
-	aux[1]->next = NULL;
-	stack[0]->head = aux[0];
-	while (aux[0])
-	{
-		aux[0]->pos--;
-		aux[0] = aux[0]->next;
-	}
-	stack[0]->tail->next = aux[1];
-	aux[1]->pos = stack[0]->tail->pos + 1;
-	stack[0]->tail = aux[1];
+	core = core_utils();
+	if (swap(&core->stack_a) && swap(&core->stack_b))
+		return (1);
+	core->last_move = NONE;
+	ft_printf("ss\n");
+	return (0);
 }
 
-void	reverse_rotate(t_meta_ilist **stack)
+int	pa(void)
 {
-	t_ilist	*aux[2];
+	t_core	*core;
 
-	if (stack[0]->size < 2)
-		return ;
-	aux[0] = stack[0]->tail->prev;
-	aux[1] = stack[0]->tail;
-	aux[0]->next = NULL;
-	aux[1]->next = stack[0]->head;
-	aux[1]->prev = NULL;
-	stack[0]->tail = aux[0];
-	aux[0] = stack[0]->head;
-	while (aux[0])
-	{
-		aux[0]->pos++;
-		aux[0] = aux[0]->next;
-	}
-	stack[0]->head->prev = aux[1];
-	aux[1]->pos = 1;
-	stack[0]->head = aux[1];
+	core = core_utils();
+	if (push(&core->stack_a, &core->stack_b))
+		return (1);
+	core->last_move = NONE;
+	ft_printf("pa\n");
+	return (0);
 }
+int	pb(void)
+{
+	t_core	*core;
 
-// sa (swap a): Troca os 2 primeiros elementos no topo da pilha a.
-// Não faz nada se houver apenas um elemento ou nenhum.
-// sb (swap b): Troca os 2 primeiros elementos no topo da pilha b.
-// Não faz nada se houver apenas um elemento ou nenhum.
-// ss : sa e sb ao mesmo tempo.
-// pa (push a): Pega o primeiro elemento no topo de b e o coloca no topo de a.
-// Não faz nada se b estiver vazia.
-// pb (push b): Pega o primeiro elemento no topo de a e o coloca no topo de b.
-// Não faz nada se a estiver vazia.
-// ra (rotate a): Move todos os elementos da pilha a para cima em 1.
-// O primeiro elemento se torna o último.
-// rb (rotate b): Move todos os elementos da pilha b para cima em 1.
-// O primeiro elemento se torna o último.
-// rr : ra e rb ao mesmo tempo.
-// rra (reverse rotate a): Move todos os elementos da pilha a para baixo em 1.
-// O último elemento se torna o primeiro.
-// rrb (reverse rotate b): Move todos os elementos da pilha b para baixo em 1.
-// O último elemento se torna o primeiro.
-// rrr : rra e rrb ao mesmo tempo
+	core = core_utils();
+	if (push(&core->stack_b, &core->stack_a))
+		return (1);
+	core->last_move = NONE;
+	ft_printf("pb\n");
+	return (0);
+}

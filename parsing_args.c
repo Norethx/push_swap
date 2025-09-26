@@ -6,7 +6,7 @@
 /*   By: rgomes-d <rgomes-d@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/24 11:34:34 by rgomes-d          #+#    #+#             */
-/*   Updated: 2025/09/24 20:21:23 by rgomes-d         ###   ########.fr       */
+/*   Updated: 2025/09/25 16:14:48 by rgomes-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,10 @@ t_meta_ilist	*parsing_args(char **args)
 		handle_error();
 		return (NULL);
 	}
-	rtn = ft_gc_calloc_root(1, sizeof(t_meta_ilist), GC_DATA, "core");
+	rtn = ft_gc_calloc_root(1, sizeof(t_meta_ilist), GC_DATA, "stack_a");
 	rtn->size = ft_size_chrarr(nums);
 	rtn->w_chunck = ALL;
 	rtn->w_side = A;
-	rtn->init_pos = 1;
-	rtn->final_pos = rtn->size;
 	if (convert_number(&rtn, nums) || verify_dup(&rtn))
 	{
 		handle_error();
@@ -79,12 +77,12 @@ static int	convert_number(t_meta_ilist **rtn, char **nums)
 		aux[0]->num = ft_atoi(nums[i]);
 		if (aux[0]->num == 0 && nums[i][ft_strlen(nums[i]) - 1] != '0')
 			return (1);
-		aux[0]->pos = ++i;
 		aux[0]->prev = aux[1];
 		if (!aux[1])
 			rtn[0]->head = aux[0];
 		else
 			aux[1]->next = aux[0];
+		i++;
 	}
 	rtn[0]->tail = aux[0];
 	return (0);

@@ -29,7 +29,8 @@ SRCS    := ft_isalpha.c               ft_isdigit.c         ft_isalnum.c        f
            ft_gc_new_root.c           ft_gc_register_root.c ft_gc_rm.c         ft_gc_rm_meta.c \
            ft_gc_rm_root.c            ft_gc_start.c        ft_gc_sweep.c       ft_root_newlst.c \
            ft_size_chrarr.c           ft_isspace.c         ft_arraylen_chr.c   ft_gcfct_arr_register_root.c \
-           ft_gcfct_register_root.c   ft_gc_calloc_root.c  ft_gc_malloc_root.c ft_atoll.c
+           ft_gcfct_register_root.c   ft_gc_calloc_root.c  ft_gc_malloc_root.c ft_atoll.c \
+		   ft_gc_content_root.c
 
 OBJTS   := $(SRCS:.c=.o)
 
