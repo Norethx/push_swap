@@ -6,7 +6,7 @@
 /*   By: rgomes-d <rgomes-d@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 18:39:09 by rgomes-d          #+#    #+#             */
-/*   Updated: 2025/09/25 21:09:23 by rgomes-d         ###   ########.fr       */
+/*   Updated: 2025/09/25 21:12:50 by rgomes-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,10 +74,6 @@ t_all_chunks	create_chuncks(t_divides chunck, t_core *stack)
 	int				i;
 
 	others.LOWERS = aux_create_chuncks(chunck, LOWERS);
-	if (others.LOWERS.mod > 0)
-		others.LOWERS.size++;
-	if (others.LOWERS.mod > 0)
-		others.LOWERS.num_final++;
 	others.AVERAGE = aux_create_chuncks(others.LOWERS, AVERAGE);
 	others.HIGHERS = aux_create_chuncks(others.AVERAGE, HIGHERS);
 	ref = stack->stack_a->tail;
@@ -115,6 +111,10 @@ t_divides	aux_create_chuncks(t_divides chunck, t_chunck w_chunk)
 		chunck.mod %= 3;
 		chunck.w_side = A;
 		chunck.num_final = chunck.num_init + chunck.size - 1;
+		if (chunck.mod > 0)
+			chunck.size++;
+		if (chunck.mod > 0)
+			chunck.num_final++;
 	}
 	else
 	{
