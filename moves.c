@@ -6,7 +6,7 @@
 /*   By: rgomes-d <rgomes-d@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/25 14:53:41 by rgomes-d          #+#    #+#             */
-/*   Updated: 2025/09/25 15:54:23 by rgomes-d         ###   ########.fr       */
+/*   Updated: 2025/09/26 14:32:53 by rgomes-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,6 @@ int	sa(void)
 	core = core_utils();
 	if (swap(&core->stack_a))
 		return (1);
-	core->last_move = NONE;
-	ft_printf("sa\n");
 	return (0);
 }
 int	sb(void)
@@ -30,8 +28,6 @@ int	sb(void)
 	core = core_utils();
 	if (swap(&core->stack_b))
 		return (1);
-	core->last_move = NONE;
-	ft_printf("sb\n");
 	return (0);
 }
 
@@ -42,8 +38,6 @@ int	ss(void)
 	core = core_utils();
 	if (swap(&core->stack_a) && swap(&core->stack_b))
 		return (1);
-	core->last_move = NONE;
-	ft_printf("ss\n");
 	return (0);
 }
 
@@ -54,8 +48,6 @@ int	pa(void)
 	core = core_utils();
 	if (push(&core->stack_a, &core->stack_b))
 		return (1);
-	core->last_move = NONE;
-	ft_printf("pa\n");
 	return (0);
 }
 int	pb(void)
@@ -65,7 +57,5 @@ int	pb(void)
 	core = core_utils();
 	if (push(&core->stack_b, &core->stack_a))
 		return (1);
-	core->last_move = NONE;
-	ft_printf("pb\n");
 	return (0);
 }

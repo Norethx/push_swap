@@ -6,7 +6,7 @@
 /*   By: rgomes-d <rgomes-d@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 18:35:06 by rgomes-d          #+#    #+#             */
-/*   Updated: 2025/09/25 19:38:01 by rgomes-d         ###   ########.fr       */
+/*   Updated: 2025/09/26 18:19:48 by rgomes-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,10 @@ typedef enum e_chunck
 
 typedef enum e_side
 {
-	A,
-	B,
+	TOP_A,
+	BOT_A,
+	TOP_B,
+	BOT_B,
 }					t_side;
 
 typedef struct s_ilist
@@ -76,6 +78,8 @@ typedef struct s_core
 	t_meta_ilist	*stack_a;
 	t_meta_ilist	*stack_b;
 	t_moves			last_move;
+	int				(*func[11])(void);
+	int				cont;
 }					t_core;
 
 typedef struct s_divides
@@ -90,9 +94,7 @@ typedef struct s_divides
 
 typedef struct s_all_chunks
 {
-	t_divides		LOWERS;
-	t_divides		AVERAGE;
-	t_divides		HIGHERS;
+	t_divides		side[4];
 }					t_all_chunks;
 
 int					handle_error(void);
@@ -113,6 +115,6 @@ int					rr(void);
 int					rra(void);
 int					rrb(void);
 int					rrr(void);
-void				control_moves(t_moves new_move);
+void				control_moves(t_moves new_move, t_core *core);
 
 #endif

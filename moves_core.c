@@ -6,7 +6,7 @@
 /*   By: rgomes-d <rgomes-d@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/24 20:31:24 by rgomes-d          #+#    #+#             */
-/*   Updated: 2025/09/25 16:28:25 by rgomes-d         ###   ########.fr       */
+/*   Updated: 2025/09/26 14:33:01 by rgomes-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,6 @@ int	rrr(void)
 	core = core_utils();
 	reverse_rotate(&core->stack_a);
 	reverse_rotate(&core->stack_b);
-	core->last_move = NONE;
-	ft_printf("rrr\n");
 	return (1);
 }
 
