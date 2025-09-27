@@ -1,8 +1,10 @@
 {
   "files.associations": {
-	"concepts": "c",
-	"initializer_list": "c"
-},
+    "concepts": "c",
+    "initializer_list": "c",
+    "type_traits": "c",
+    "utility": "c"
+  },
   "C_Cpp_Runner.cCompilerPath": "gcc",
   "C_Cpp_Runner.cppCompilerPath": "g++",
   "C_Cpp_Runner.debuggerPath": "gdb",

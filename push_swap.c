@@ -6,7 +6,7 @@
 /*   By: rgomes-d <rgomes-d@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 18:39:09 by rgomes-d          #+#    #+#             */
-/*   Updated: 2025/09/26 20:17:36 by rgomes-d         ###   ########.fr       */
+/*   Updated: 2025/09/27 13:35:01 by rgomes-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,14 @@
 int				check_order(t_meta_ilist *nums);
 void			init_sorting(t_core *stack);
 int				sorting(t_divides chunck, t_core *stack);
-t_all_chunks	create_chuncks(t_divides chunck, t_core *stack);
+t_all_chunks	create_chuncks(t_divides chunck, t_core *stack, t_all_chunks others);
 t_divides		aux_create_chuncks(t_divides chunck, t_chunck w_chunk);
 void			print_moves(t_core *core);
 t_divides		resolve_mod(t_divides chunck);
-void			calculate_move(t_core *core, t_side from, t_side to);
+void			calculate_move(t_core *core, t_side from, t_divides chunck);
+void			verify_chuncks(t_divides *chunck, t_core **stack, t_all_chunks	*others);
+void			sorting_final(t_core *core, t_side from, t_divides chunck, int qt);
+void			last_sort(t_core *core, t_divides chunck);
 
 int	main(int argc, char **argv)
 {
@@ -63,43 +66,48 @@ int	sorting(t_divides chunck, t_core *stack)
 
 	if (chunck.size <= 3)
 	{
+		t_side aux; 
+		
+		aux = chunck.w_side;
+		chunck.w_side = TOP_A;
 		if (chunck.size == 3)
-		{
-			calculate_move(stack, chunck.w_side, TOP_A);
-			calculate_move(stack, chunck.w_side, TOP_A);
-			calculate_move(stack, chunck.w_side, TOP_A);
-		}
+			sorting_final(stack, aux, chunck, 3);
 		else if (chunck.size == 2)
-		{
-			calculate_move(stack, chunck.w_side, TOP_A);
-			calculate_move(stack, chunck.w_side, TOP_A);
-		}
+			sorting_final(stack, aux, chunck, 3);
 		else if (chunck.size == 1)
-			calculate_move(stack, chunck.w_side, TOP_A);
+			calculate_move(stack, aux, chunck);
 		return (0);
 	}
-	others = create_chuncks(chunck, stack);
+	others = create_chuncks(chunck, stack, others);
 	sorting(others.side[HIGHERS], stack);
 	sorting(others.side[AVERAGE], stack);
 	sorting(others.side[LOWERS], stack);
 	return (0);
 }
 
-t_all_chunks	create_chuncks(t_divides chunck, t_core *stack)
+void	sorting_final(t_core *core, t_side from, t_divides chunck, int qt)
 {
-	t_all_chunks	others;
+	if (qt == 2)
+	{
+		calculate_move(core, from, chunck);
+		calculate_move(core, from, chunck);
+	}
+	if (qt == 3)
+	{
+		calculate_move(core, from, chunck);
+		calculate_move(core, from, chunck);
+		calculate_move(core, from, chunck);
+	}
+}
+
+t_all_chunks	create_chuncks(t_divides chunck, t_core *stack, t_all_chunks others)
+{
 	int				i[2];
 
 	others.side[LOWERS] = aux_create_chuncks(chunck, LOWERS);
 	others.side[AVERAGE] = aux_create_chuncks(others.side[LOWERS], AVERAGE);
 	others.side[HIGHERS] = aux_create_chuncks(others.side[AVERAGE], HIGHERS);
-	i[0] = stack->stack_a->head->r_pos;
-	if (chunck.w_side == BOT_A && (i[0] >= chunck.num_init && i[0] <= chunck.num_final))
-		chunck.w_side = TOP_A;
-	if (stack->stack_b->head)
-		i[0] = stack->stack_b->head->r_pos;
-	if (chunck.w_side == BOT_B && (i[0] >= chunck.num_init && i[0] <= chunck.num_final))
-		chunck.w_side = TOP_B;
+	verify_chuncks(&chunck, &stack, &others);
 	while (chunck.size-- > 0)
 	{
 		if (chunck.w_side == TOP_A)
@@ -111,42 +119,97 @@ t_all_chunks	create_chuncks(t_divides chunck, t_core *stack)
 		else if (chunck.w_side == BOT_B)
 			i[0] = stack->stack_b->tail->r_pos;
 		if (i[0] > others.side[AVERAGE].num_final)
-			i[1] = HIGHERS;	
+			i[1] = HIGHERS;
 		else if (i[0] < others.side[AVERAGE].num_init)
-			i[1] = LOWERS;	
+			i[1] = LOWERS;
 		else
-			i[1] = AVERAGE;			
-		calculate_move(stack, chunck.w_side, others.side[i[1]].w_side);
+			i[1] = AVERAGE;
+		calculate_move(stack, chunck.w_side, others.side[i[1]]);
 	}
 	return(others);
 }
 
-void	calculate_move(t_core *core, t_side from, t_side to)
+void	verify_chuncks(t_divides *chunck, t_core **stack, t_all_chunks	*others)
 {
-	if (from == TOP_A && to == BOT_A)
+	int				i;
+
+	i = stack[0]->stack_a->head->r_pos;
+	if (chunck->w_side == BOT_A && (i >= chunck->num_init && i <= chunck->num_final))
+		chunck->w_side = TOP_A;
+	if (stack[0]->stack_b->head)
+		i = stack[0]->stack_b->head->r_pos;
+	if (chunck->w_side == BOT_B && (i >= chunck->num_init && i <= chunck->num_final))
+		chunck->w_side = TOP_B;
+	if (others->side[LOWERS].w_side == chunck->w_side)
+		others->side[LOWERS].w_side++;
+	if (others->side[AVERAGE].w_side == chunck->w_side)
+	{
+		others->side[AVERAGE].w_side++;
+		others->side[LOWERS].w_side++;
+	}
+	if (others->side[HIGHERS].w_side == chunck->w_side)
+	{
+		others->side[HIGHERS].w_side++;
+		others->side[AVERAGE].w_side++;
+		others->side[LOWERS].w_side++;
+	}
+}
+
+void	calculate_move(t_core *core, t_side from, t_divides chunck)
+{
+	if (from == TOP_A && chunck.w_side == BOT_A)
 		control_moves(RA, core);
-	else if (from == TOP_A && (to == TOP_B  || to == BOT_B) )
+	else if (from == TOP_A && (chunck.w_side > 1))
 		control_moves(PB, core);
-	if (from == TOP_A && to == BOT_B)
+	if (from == TOP_A && chunck.w_side == BOT_B)
 		control_moves(RB, core);
 	if (from == BOT_A)
 		control_moves(RRA, core);
-	if (from == BOT_A && (to == TOP_B  || to == BOT_B) )
+	if (from == BOT_A && (chunck.w_side > 1))
 		control_moves(PB, core);
-	if (from == BOT_A && to == BOT_B)
+	if (from == BOT_A && chunck.w_side == BOT_B)
 		control_moves(RB, core);
-	if (from == TOP_B && to == BOT_B)
+	if (from == TOP_B && chunck.w_side == BOT_B)
 		control_moves(RB, core);
-	else if (from == TOP_B && (to == TOP_A  || to == BOT_A) )
+	else if (from == TOP_B && (chunck.w_side < 2))
 		control_moves(PA, core);
-	if (from == TOP_B && to == BOT_A)
+	if (from == TOP_B && chunck.w_side == BOT_A)
 		control_moves(RA, core);
 	if (from == BOT_B)
 		control_moves(RRB, core);
-	if (from == BOT_B && (to == TOP_A  || to == BOT_A) )
+	if (from == BOT_B && (chunck.w_side < 2))
 		control_moves(PA, core);
-	if (from == BOT_B && to == BOT_A)
+	if (from == BOT_B && chunck.w_side == BOT_A)
 		control_moves(RA, core);
+	last_sort(core, chunck);
+}
+
+void	last_sort(t_core *core, t_divides chunck)
+{
+	int i[2];
+	if(chunck.size <= 3)
+	{
+		if (chunck.w_side == TOP_A && core->stack_a->head
+			&& core->stack_a->head->next)
+		{
+			i[0] = core->stack_a->head->r_pos;
+			i[1] = core->stack_a->head->next->r_pos;
+			if(i[0] > i[1])
+				control_moves(SA, core);
+		}
+		if (chunck.w_side == TOP_A && core->stack_a->head
+			&& core->stack_a->head->next && core->stack_a->head->next->next)
+		{
+			i[0] = core->stack_a->head->next->r_pos;
+			i[1] = core->stack_a->head->next->next->r_pos;
+			if(i[0] > i[1])
+			{
+				control_moves(RA, core);
+				control_moves(SA, core);
+				control_moves(RRA, core);
+			}
+		}
+	}
 }
 
 t_divides	aux_create_chuncks(t_divides chunck, t_chunck w_chunk)
@@ -155,12 +218,15 @@ t_divides	aux_create_chuncks(t_divides chunck, t_chunck w_chunk)
 	{
 		chunck.mod = chunck.size % 3;
 		chunck.size /= 3;
-		chunck.w_side = BOT_B;
+		chunck.w_side = TOP_B;
 		chunck.num_final = chunck.num_init + chunck.size - 1;
 	}
 	else
 	{
-		chunck.w_side = chunck.w_side - 1;
+		if (w_chunk == HIGHERS)
+			chunck.w_side = TOP_A;
+		if (w_chunk == AVERAGE)
+			chunck.w_side = BOT_A;
 		chunck.num_init = chunck.num_final + 1;
 		chunck.num_final = chunck.num_init + chunck.size - 1;
 	}
@@ -190,7 +256,7 @@ void			control_moves(t_moves new_move, t_core *core)
 {
 	t_moves att_move;
 
-	att_move = NONE;
+	att_move = new_move;
 	if (new_move != NONE)
 		core->func[new_move]();
 	if ((new_move == SA && core->last_move == SB) || (new_move == SB &&
@@ -202,10 +268,16 @@ void			control_moves(t_moves new_move, t_core *core)
 	else if ((new_move == RRA && core->last_move == RRB) || (new_move == RRB &&
 		core->last_move == RRA))
 		att_move = RRR;
-	if (att_move == NONE)
+	if ((new_move == RRA && core->last_move == RA) || (new_move == RA &&
+		core->last_move == RRA) || (new_move == RRB && core->last_move == RB)
+		|| (new_move == RB && core->last_move == RRB))
+		{
+			att_move = NONE;
+			core->last_move = NONE;
+		}
+	if (att_move == new_move)
 		print_moves(core);
-	else
-		new_move = att_move;
+	new_move = att_move;
 	core->last_move = new_move;
 }
 

@@ -6,7 +6,7 @@
 /*   By: rgomes-d <rgomes-d@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/24 20:31:24 by rgomes-d          #+#    #+#             */
-/*   Updated: 2025/09/26 14:33:01 by rgomes-d         ###   ########.fr       */
+/*   Updated: 2025/09/27 13:22:50 by rgomes-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ int	swap(t_meta_ilist **stack)
 	aux->next = stack[0]->head;
 	aux->prev = NULL;
 	stack[0]->head = aux;
+	if(stack[0]->size == 2)
+		stack[0]->tail = aux->next;
 	return (0);
 }
 int	push(t_meta_ilist **stack_1, t_meta_ilist **stack_2)
@@ -42,7 +44,7 @@ int	push(t_meta_ilist **stack_1, t_meta_ilist **stack_2)
 
 	if (stack_2[0]->size == 0)
 		return (1);
-	if (stack_2[0]->head)
+	if (stack_2[0]->head->next)
 		aux[0] = stack_2[0]->head->next;
 	else
 		aux[0] = NULL;
@@ -58,6 +60,8 @@ int	push(t_meta_ilist **stack_1, t_meta_ilist **stack_2)
 	stack_2[0]->head = aux[0];
 	stack_1[0]->size++;
 	stack_2[0]->size--;
+	if	(!stack_2[0]->head)
+		stack_2[0]->tail = NULL;
 	return (0);
 }
 
@@ -80,7 +84,7 @@ void	rotate(t_meta_ilist **stack)
 void	reverse_rotate(t_meta_ilist **stack)
 {
 	t_ilist	*aux[2];
-
+	
 	if (stack[0]->size < 2)
 		return ;
 	aux[0] = stack[0]->tail->prev;
