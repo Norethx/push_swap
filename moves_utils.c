@@ -6,11 +6,11 @@
 /*   By: rgomes-d <rgomes-d@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/25 14:53:45 by rgomes-d          #+#    #+#             */
-/*   Updated: 2025/09/27 13:30:50 by rgomes-d         ###   ########.fr       */
+/*   Updated: 2025/09/27 13:36:50 by rgomes-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h".
+#include "push_swap.h"
 
 int	ra(void)
 {

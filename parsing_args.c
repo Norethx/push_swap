@@ -6,7 +6,7 @@
 /*   By: rgomes-d <rgomes-d@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/24 11:34:34 by rgomes-d          #+#    #+#             */
-/*   Updated: 2025/09/26 14:22:27 by rgomes-d         ###   ########.fr       */
+/*   Updated: 2025/09/27 13:36:33 by rgomes-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ t_meta_ilist	*parsing_args(char **args)
 	}
 	rtn = ft_gc_calloc_root(1, sizeof(t_meta_ilist), GC_DATA, "stack_a");
 	rtn->size = ft_size_chrarr(nums);
-	rtn->w_chunck = ALL;
+	rtn->w_chunk = ALL;
 	rtn->w_side = TOP_A;
 	if (convert_number(&rtn, nums) || verify_dup(&rtn))
 	{
