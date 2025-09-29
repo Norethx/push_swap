@@ -6,7 +6,7 @@
 /*   By: rgomes-d <rgomes-d@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 18:35:06 by rgomes-d          #+#    #+#             */
-/*   Updated: 2025/09/27 13:36:33 by rgomes-d         ###   ########.fr       */
+/*   Updated: 2025/09/29 13:12:12 by rgomes-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,7 @@ typedef enum e_error
 	INVALID_ARGS,
 	INVALID_NUMBER,
 	NOT_INT_ERROR,
-	NOT_NUMBER
-
+	NOT_NUMBER,
 }					t_error;
 
 typedef enum e_moves
@@ -70,7 +69,7 @@ typedef struct s_meta_ilist
 	t_ilist			*tail;
 	t_side			w_side;
 	int				size;
-	t_chunk		w_chunk;
+	t_chunk			w_chunk;
 }					t_meta_ilist;
 
 typedef struct s_core
@@ -78,13 +77,12 @@ typedef struct s_core
 	t_meta_ilist	*stack_a;
 	t_meta_ilist	*stack_b;
 	t_moves			last_move;
-	int				(*func[11])(void);
 	int				cont;
 }					t_core;
 
 typedef struct s_divides
 {
-	t_chunk		w_chunk;
+	t_chunk			w_chunk;
 	t_side			w_side;
 	int				num_init;
 	int				num_final;
@@ -99,22 +97,26 @@ typedef struct s_all_chunks
 
 int					handle_error(void);
 t_meta_ilist		*parsing_args(char **args);
+int					verify_dup(t_meta_ilist **rtn);
 t_core				*core_utils(void);
 int					swap(t_meta_ilist **stack);
 int					push(t_meta_ilist **stack_1, t_meta_ilist **stack_2);
 void				rotate(t_meta_ilist **stack);
 void				reverse_rotate(t_meta_ilist **stack);
-int					sa(void);
-int					sb(void);
-int					ss(void);
-int					pa(void);
-int					pb(void);
-int					ra(void);
-int					rb(void);
-int					rr(void);
-int					rra(void);
-int					rrb(void);
-int					rrr(void);
 void				control_moves(t_moves new_move, t_core *core);
+int					handle_moves(t_moves move);
+int					init_sorting(t_meta_ilist *stack);
+int					sorting(t_divides chunk, t_core *stack);
+t_all_chunks		create_chunks(t_divides chunk, t_core *stack,
+						t_all_chunks others);
+t_divides			aux_create_chunks(t_divides chunk, t_chunk w_chunk);
+void				print_moves(t_core *core);
+t_divides			resolve_mod(t_divides chunk);
+void				calculate_move(t_core *core, t_side from, t_divides chunk);
+void				verify_chunks(t_divides *chunk, t_core **stack,
+						t_all_chunks *others);
+void				sorting_final(t_core *core, t_side from, t_divides chunk,
+						int qt);
+void				last_sort(t_core *core, t_divides chunk);
 
 #endif

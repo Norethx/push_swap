@@ -6,7 +6,7 @@
 /*   By: rgomes-d <rgomes-d@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/24 11:34:34 by rgomes-d          #+#    #+#             */
-/*   Updated: 2025/09/27 13:36:33 by rgomes-d         ###   ########.fr       */
+/*   Updated: 2025/09/29 12:08:54 by rgomes-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ static char		**duplicate_argv(char **argv);
 static int		ft_verify_numbers(char **nums);
 static char		**split_args(char **argv);
 static int		convert_number(t_meta_ilist **rtn, char **nums);
-static int		verify_dup(t_meta_ilist **rtn);
 
 t_meta_ilist	*parsing_args(char **args)
 {
@@ -39,28 +38,6 @@ t_meta_ilist	*parsing_args(char **args)
 		return (NULL);
 	}
 	return (rtn);
-}
-
-static int	verify_dup(t_meta_ilist **rtn)
-{
-	t_ilist	*aux[2];
-
-	aux[0] = rtn[0]->head;
-	while (aux[0])
-	{
-		aux[1] = rtn[0]->head;
-		while (aux[1])
-		{
-			if (aux[0] != aux[1] && aux[0]->num == aux[1]->num)
-				return (1);
-			if (aux[0] != aux[1] && aux[0]->num > aux[1]->num)
-				aux[0]->r_pos++;
-			aux[1] = aux[1]->next;
-		}
-		aux[0]->r_pos++;
-		aux[0] = aux[0]->next;
-	}
-	return (0);
 }
 
 static int	convert_number(t_meta_ilist **rtn, char **nums)

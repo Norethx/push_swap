@@ -6,7 +6,7 @@
 /*   By: rgomes-d <rgomes-d@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 20:03:25 by rgomes-d          #+#    #+#             */
-/*   Updated: 2025/09/24 15:37:32 by rgomes-d         ###   ########.fr       */
+/*   Updated: 2025/09/29 11:17:02 by rgomes-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 long long	ft_atoll(const char *nptr)
 {
-	int	i;
+	int			i;
 	long long	result;
 	long long	multiplier;
 
