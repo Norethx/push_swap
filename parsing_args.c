@@ -6,7 +6,7 @@
 /*   By: rgomes-d <rgomes-d@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/24 11:34:34 by rgomes-d          #+#    #+#             */
-/*   Updated: 2025/09/29 21:15:55 by rgomes-d         ###   ########.fr       */
+/*   Updated: 2025/09/30 13:01:32 by rgomes-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,17 @@ t_meta_ilist	*parsing_args(char **args, int argc)
 {
 	char			**nums;
 	t_meta_ilist	*rtn;
-	int				i;
+	int				i[2];
 
-	i = 0;
-	while (i < argc)
-		if (!args[i++][0])
-			return(NULL);
+	i[0] = 0;
+	i[1] = 0;
+	while (i[0] < argc)
+		if (!args[i[0]++][0])
+			i[1] = 1;
 	nums = duplicate_argv(args);
-	if (ft_verify_numbers(nums))
+	if (!nums || i[1] || ft_verify_numbers(nums))
+		handle_error();
+	if (!nums || i[1] || ft_verify_numbers(nums))
 		return (NULL);
 	rtn = ft_gc_calloc_root(1, sizeof(t_meta_ilist), GC_DATA, "stack_a");
 	rtn->size = ft_size_chrarr(nums);

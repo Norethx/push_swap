@@ -6,7 +6,7 @@
 /*   By: rgomes-d <rgomes-d@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 18:39:09 by rgomes-d          #+#    #+#             */
-/*   Updated: 2025/09/30 11:10:11 by rgomes-d         ###   ########.fr       */
+/*   Updated: 2025/09/30 12:54:29 by rgomes-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,10 @@ int	main(int argc, char **argv)
 	if (ft_gc_init())
 		return (handle_error());
 	nums = parsing_args(argv, argc);
-	if (!nums || init_sorting(nums))
-		return (handle_error());
-	control_moves(NONE, core_utils());
+	if (!nums)
+		return (1);
+	if (!init_sorting(nums))
+		control_moves(NONE, core_utils());
 	ft_gc_end();
 	return (0);
 }
