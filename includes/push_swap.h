@@ -6,7 +6,7 @@
 /*   By: rgomes-d <rgomes-d@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 18:35:06 by rgomes-d          #+#    #+#             */
-/*   Updated: 2025/09/30 11:08:45 by rgomes-d         ###   ########.fr       */
+/*   Updated: 2025/09/30 11:22:52 by rgomes-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,14 +46,6 @@ typedef enum e_chunk
 	AVERAGE,
 	HIGHERS,
 }					t_chunk;
-
-typedef enum e_side
-{
-	TOP_A,
-	BOT_A,
-	TOP_B,
-	BOT_B,
-}					t_side;
 
 typedef enum e_side
 {
