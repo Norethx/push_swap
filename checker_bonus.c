@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   checker.c                                          :+:      :+:    :+:   */
+/*   checker_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rgomes-d <rgomes-d@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 18:39:09 by rgomes-d          #+#    #+#             */
-/*   Updated: 2025/09/29 21:12:37 by rgomes-d         ###   ########.fr       */
+/*   Updated: 2025/09/30 11:21:07 by rgomes-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ static int	check_order(t_meta_ilist *nums)
 {
 	t_ilist	*aux;
 
-	if (!nums)
+	if (!nums || nums->size == 0)
 		return (1);
 	aux = nums->head;
 	while (aux->next)

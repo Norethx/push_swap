@@ -9,7 +9,7 @@ CPPFLAGS :=  $(addprefix -I,$(INCLUDES))
 SRCS_MANDATORY := push_swap.c
 SRCS_ALL := handle_error.c     parsing_args.c    moves.c       chunks.c\
             sorting.c          aux_moves.c
-SRCS_BONUS := checker.c
+SRCS_BONUS := checker_bonus.c
 OBJTS             := $(SRCS_ALL:.c=.o)
 OBJTS_MANDATORY   := $(SRCS_MANDATORY:.c=.o)
 OBJTS_BONUS   := $(SRCS_BONUS:.c=.o)

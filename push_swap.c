@@ -6,7 +6,7 @@
 /*   By: rgomes-d <rgomes-d@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 18:39:09 by rgomes-d          #+#    #+#             */
-/*   Updated: 2025/09/29 21:12:19 by rgomes-d         ###   ########.fr       */
+/*   Updated: 2025/09/30 11:10:11 by rgomes-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	init_sorting(t_meta_ilist *stack_a)
 	t_ilist		*aux;
 	t_core		*stack;
 
-	if (!stack_a)
+	if (!stack_a || stack_a->size == 0)
 		return (1);
 	aux = stack_a->head;
 	while (aux->next)
