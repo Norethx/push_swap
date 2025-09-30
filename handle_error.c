@@ -6,7 +6,7 @@
 /*   By: rgomes-d <rgomes-d@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 19:27:24 by rgomes-d          #+#    #+#             */
-/*   Updated: 2025/09/29 11:50:43 by rgomes-d         ###   ########.fr       */
+/*   Updated: 2025/09/29 20:52:26 by rgomes-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,4 +39,22 @@ int	verify_dup(t_meta_ilist **rtn)
 		aux[0] = aux[0]->next;
 	}
 	return (0);
+}
+
+t_core	*core_utils(void)
+{
+	static t_core	*stacks = NULL;
+
+	if (!stacks)
+	{
+		stacks = ft_gc_calloc_root(1, sizeof(t_core), GC_DATA, "history");
+		stacks->stack_a = ft_gc_content_root("stack_a")->content;
+		stacks->stack_a = ((t_gc_list *)stacks->stack_a)->content;
+		stacks->stack_b = ft_gc_calloc_root(1, sizeof(t_meta_ilist), GC_DATA,
+				"stack_b");
+		stacks->stack_b->w_side = TOP_B;
+		stacks->stack_b->w_chunk = ALL;
+		stacks->last_move = NONE;
+	}
+	return (stacks);
 }

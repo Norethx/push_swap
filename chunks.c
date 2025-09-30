@@ -6,7 +6,7 @@
 /*   By: rgomes-d <rgomes-d@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/29 11:52:04 by rgomes-d          #+#    #+#             */
-/*   Updated: 2025/09/29 13:49:59 by rgomes-d         ###   ########.fr       */
+/*   Updated: 2025/09/29 17:46:54 by rgomes-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ t_all_chunks	create_chunks(t_divides chunk, t_core *stack,
 {
 	int	i[2];
 
-	others.side[LOWERS] = aux_create_chunks(chunk, LOWERS);
-	others.side[AVERAGE] = aux_create_chunks(others.side[LOWERS], AVERAGE);
-	others.side[HIGHERS] = aux_create_chunks(others.side[AVERAGE], HIGHERS);
+	others.side[HIGHERS] = aux_create_chunks(chunk, HIGHERS);
+	others.side[AVERAGE] = aux_create_chunks(others.side[HIGHERS], AVERAGE);
+	others.side[LOWERS] = aux_create_chunks(others.side[AVERAGE], LOWERS);
 	verify_chunks(&chunk, &stack, &others);
 	while (chunk.size-- > 0)
 	{
@@ -70,21 +70,21 @@ void	verify_chunks(t_divides *chunk, t_core **stack, t_all_chunks *others)
 
 t_divides	aux_create_chunks(t_divides chunk, t_chunk w_chunk)
 {
-	if (w_chunk == LOWERS)
+	if (w_chunk == HIGHERS)
 	{
 		chunk.mod = chunk.size % 3;
 		chunk.size /= 3;
-		chunk.w_side = TOP_B;
-		chunk.num_final = chunk.num_init + chunk.size - 1;
+		chunk.w_side = TOP_A;
+		chunk.num_init = chunk.num_final - chunk.size + 1;
 	}
 	else
 	{
-		if (w_chunk == HIGHERS)
-			chunk.w_side = TOP_A;
+		if (w_chunk == LOWERS)
+			chunk.w_side = TOP_B;
 		if (w_chunk == AVERAGE)
 			chunk.w_side = BOT_A;
-		chunk.num_init = chunk.num_final + 1;
-		chunk.num_final = chunk.num_init + chunk.size - 1;
+		chunk.num_final = chunk.num_init - 1;
+		chunk.num_init = chunk.num_final - chunk.size + 1;
 	}
 	chunk.w_chunk = w_chunk;
 	chunk = resolve_mod(chunk);
@@ -93,17 +93,15 @@ t_divides	aux_create_chunks(t_divides chunk, t_chunk w_chunk)
 
 t_divides	resolve_mod(t_divides chunk)
 {
-	if (chunk.mod > 0 && chunk.w_chunk == LOWERS)
-		chunk.size++;
-	if (chunk.mod > 0 && chunk.w_chunk == LOWERS)
-		chunk.num_final++;
-	if (chunk.mod == 1 && chunk.w_chunk == AVERAGE)
-		chunk.size--;
-	if (chunk.mod == 1 && chunk.w_chunk == AVERAGE)
-		chunk.num_final--;
-	if (chunk.mod == 2 && chunk.w_chunk == HIGHERS)
-		chunk.size--;
-	if (chunk.mod == 2 && chunk.w_chunk == HIGHERS)
-		chunk.num_final--;
+	if (chunk.mod > 0 && chunk.w_chunk == HIGHERS)
+	{
+		chunk.size += chunk.mod;
+		chunk.num_init -= chunk.mod;
+	}
+	else if (chunk.w_chunk == AVERAGE)
+	{
+		chunk.size -= chunk.mod;
+		chunk.num_init += chunk.mod;
+	}
 	return (chunk);
 }

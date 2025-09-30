@@ -6,7 +6,7 @@
 /*   By: rgomes-d <rgomes-d@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/24 11:34:34 by rgomes-d          #+#    #+#             */
-/*   Updated: 2025/09/29 12:08:54 by rgomes-d         ###   ########.fr       */
+/*   Updated: 2025/09/29 21:15:55 by rgomes-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,17 +17,19 @@ static int		ft_verify_numbers(char **nums);
 static char		**split_args(char **argv);
 static int		convert_number(t_meta_ilist **rtn, char **nums);
 
-t_meta_ilist	*parsing_args(char **args)
+t_meta_ilist	*parsing_args(char **args, int argc)
 {
 	char			**nums;
 	t_meta_ilist	*rtn;
+	int				i;
 
+	i = 0;
+	while (i < argc)
+		if (!args[i++][0])
+			return(NULL);
 	nums = duplicate_argv(args);
 	if (ft_verify_numbers(nums))
-	{
-		handle_error();
 		return (NULL);
-	}
 	rtn = ft_gc_calloc_root(1, sizeof(t_meta_ilist), GC_DATA, "stack_a");
 	rtn->size = ft_size_chrarr(nums);
 	rtn->w_chunk = ALL;
@@ -52,7 +54,7 @@ static int	convert_number(t_meta_ilist **rtn, char **nums)
 		aux[1] = aux[0];
 		aux[0] = ft_gc_calloc_root(1, sizeof(t_ilist), GC_DATA, "core");
 		aux[0]->num = ft_atoi(nums[i]);
-		if (aux[0]->num == 0 && nums[i][ft_strlen(nums[i]) - 1] != '0')
+		if (aux[0]->num == 0 && ft_atoll(nums[i]) != 0)
 			return (1);
 		aux[0]->prev = aux[1];
 		if (!aux[1])
@@ -79,6 +81,8 @@ static int	ft_verify_numbers(char **nums)
 			i[1]++;
 		if (nums[i[0]][i[1]] == '-' || nums[i[0]][i[1]] == '+')
 			i[1]++;
+		if (!nums[i[0]][i[1]])
+			return (1);
 		while (nums[i[0]][i[1]])
 		{
 			if (!ft_strchr("0123456789", nums[i[0]][i[1]]))

@@ -6,7 +6,7 @@
 /*   By: rgomes-d <rgomes-d@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/29 13:57:07 by rgomes-d          #+#    #+#             */
-/*   Updated: 2025/09/29 13:59:58 by rgomes-d         ###   ########.fr       */
+/*   Updated: 2025/09/29 17:44:55 by rgomes-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,31 @@ void	control_moves(t_moves new_move, t_core *core)
 		print_moves(core);
 	new_move = att_move;
 	core->last_move = new_move;
+}
+
+void	sort_three(t_meta_ilist *a)
+{
+	int	x[3];
+
+	x[0] = a->head->r_pos;
+	x[1] = a->head->next->r_pos;
+	x[2] = a->tail->r_pos;
+	if (x[0] > x[1] && x[1] < x[2] && x[0] < x[2])
+		control_moves(SA, core_utils());
+	else if (x[0] > x[1] && x[1] > x[2])
+	{
+		control_moves(SA, core_utils());
+		control_moves(RRA, core_utils());
+	}
+	else if (x[0] > x[1] && x[1] < x[2] && x[0] > x[2])
+		control_moves(RA, core_utils());
+	else if (x[0] < x[1] && x[1] > x[2] && x[0] < x[2])
+	{
+		control_moves(SA, core_utils());
+		control_moves(RA, core_utils());
+	}
+	else if (x[0] < x[1] && x[1] > x[2] && x[0] > x[2])
+		control_moves(RRA, core_utils());
 }
 
 void	print_moves(t_core *core)

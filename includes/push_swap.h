@@ -6,7 +6,7 @@
 /*   By: rgomes-d <rgomes-d@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 18:35:06 by rgomes-d          #+#    #+#             */
-/*   Updated: 2025/09/29 13:12:12 by rgomes-d         ###   ########.fr       */
+/*   Updated: 2025/09/29 21:12:07 by rgomes-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ typedef struct s_all_chunks
 }					t_all_chunks;
 
 int					handle_error(void);
-t_meta_ilist		*parsing_args(char **args);
+t_meta_ilist		*parsing_args(char **args, int argc);
 int					verify_dup(t_meta_ilist **rtn);
 t_core				*core_utils(void);
 int					swap(t_meta_ilist **stack);
@@ -117,6 +117,7 @@ void				verify_chunks(t_divides *chunk, t_core **stack,
 						t_all_chunks *others);
 void				sorting_final(t_core *core, t_side from, t_divides chunk,
 						int qt);
+void				sort_three(t_meta_ilist *a);
 void				last_sort(t_core *core, t_divides chunk);
 
 #endif
