@@ -5,11 +5,11 @@
       "name": "C/C++ Runner: Debug Session",
       "type": "cppdbg",
       "request": "launch",
-      "args": ["2 1 3"],
+      "args": ["a"],
       "stopAtEntry": false,
       "externalConsole": false,
       "cwd": "/nfs/homes/rgomes-d/git_Noreth/push_swap",
-      "program": "/nfs/homes/rgomes-d/git_Noreth/push_swap/checker",
+      "program": "/nfs/homes/rgomes-d/git_Noreth/push_swap/push_swap",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [
@@ -22,3 +22,4 @@
     }
   ]
 }
+
